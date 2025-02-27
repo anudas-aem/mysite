@@ -1,61 +1,153 @@
-.accordion details {
-  border: 1px solid #dadada;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.accordion details + details {
-  margin-top: 24px;
-}
-
-.accordion details p {
-  margin-bottom: 0.8em;
-}
-
-.accordion details summary {
+.carousel .carousel-slides-container {
   position: relative;
-  padding: 0 16px;
-  padding-right: 46px;
-  cursor: pointer;
+}
+
+.carousel .carousel-slides,
+.carousel .carousel-slide-indicators {
   list-style: none;
-  overflow: auto;
-  transition: background-color 0.2s;
+  margin: 0;
+  padding: 0;
 }
 
-.accordion details[open] summary {
-  background-color: var(--light-color);
+.carousel .carousel-slides {
+  display: flex;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  overflow: scroll clip;
 }
 
-.accordion details summary:focus,
-.accordion details summary:hover {
-  background-color: var(--light-color);
-}
-
-.accordion details summary::-webkit-details-marker {
+.carousel .carousel-slides::-webkit-scrollbar {
   display: none;
 }
 
-.accordion details summary::after {
-  content: '';
+.carousel .carousel-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-height: min(50vw, calc(100dvh - var(--header-height)));
+}
+
+.carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
+  align-items: center;
+}
+
+.carousel .carousel-slide:has(.carousel-slide-content[data-align='right']) {
+  align-items: flex-end;
+}
+
+.carousel .carousel-slide .carousel-slide-image picture {
+  position: absolute;
+  inset: 0;
+}
+
+.carousel .carousel-slide .carousel-slide-image picture > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel .carousel-slide .carousel-slide-content {
+  z-index: 1;
+  margin: 68px;
+  padding: 16px;
+  color: white;
+  background-color: rgba(19 19 19 / 75%);
+  position: relative;
+  width: var(--slide-content-width, auto);
+}
+
+.carousel .carousel-slide-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 12px;
+  padding: 12px;
+  background-color: var(--light-color);
+  line-height: 0;
+}
+
+.carousel .carousel-slide-indicator button {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #dadada;
+  transition: background-color 0.2s;
+}
+
+.carousel .carousel-slide-indicator button:disabled,
+.carousel .carousel-slide-indicator button:hover,
+.carousel .carousel-slide-indicator button:focus-visible {
+  background-color: var(--text-color);
+}
+
+.carousel .carousel-navigation-buttons {
   position: absolute;
   top: 50%;
-  right: 18px;
-  transform: translateY(-50%) rotate(135deg);
-  width: 6px;
-  height: 6px;
+  transform: translateY(-50%);
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel .carousel-navigation-buttons button {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  border-radius: 50%;
+  padding: 0;
+  background-color: rgba(19 19 19 / 25%);
+  transition: background-color 0.2s;
+}
+
+.carousel .carousel-navigation-buttons button:hover,
+.carousel .carousel-navigation-buttons button:focus-visible {
+  background-color: rgba(19 19 19 / 75%);
+}
+
+.carousel .carousel-navigation-buttons button::after {
+  display: block;
+  content: '';
   border: 2px solid;
-  border-width: 2px 2px 0 0;
-  transition: transform 0.2s;
+  border-bottom: 0;
+  border-left: 0;
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  transform: translate(-50%, -50%) rotate(-135deg);
 }
 
-.accordion details[open] summary::after {
-  transform: translateY(-50%) rotate(-45deg);
+.carousel .carousel-navigation-buttons button.slide-next::after {
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: calc(50% - 2px);
 }
 
-.accordion details .accordion-item-body {
-  padding: 0 16px;
-}
+@media (width >= 600px) {
+  .carousel .carousel-navigation-buttons {
+    left: 24px;
+    right: 24px;
+  }
 
-.accordion details[open] .accordion-item-body {
-  border-top: 1px solid #dadada;
-  background-color: var(--background-color);
+  .carousel .carousel-slide .carousel-slide-content {
+    --slide-content-width: calc((100% - 184px) / 2);
+
+    margin: 92px;
+  }
+
+  .carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
+    --slide-content-width: auto;
+  }
 }
