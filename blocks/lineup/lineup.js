@@ -1,7 +1,7 @@
 import { createElement } from '../../scripts/common.js';
 import { smoothScrollHorizontal } from '../../scripts/motion-helper.js';
 
-const blockName = 'v2-truck-lineup';
+const blockName = 'lineup';
 
 function stripEmptyTags(main, child) {
   if (child !== main && child.innerHTML.trim() === '') {
